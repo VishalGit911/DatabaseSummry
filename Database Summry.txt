@@ -1,0 +1,105 @@
+//This code pubsyaml
+- flutter pub add sqflite   -  sqflith
+- flutter pub add sqflite path - path
+
+
+
+// getdatabase
+class DatabaseHelper {
+  Future<Database> dbhelper() async {
+    Database database = await openDatabase(
+      join(await getDatabasesPath(), "notes.db"),
+      onCreate: (db, version) {
+        return db.execute(
+            "CREATE TABLE notes(id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT , decsription TEXT)");
+      },
+      version: 1,
+    );
+    return database;
+  }
+}
+
+
+main()
+{
+
+WidgetFlutterBinding.ensureIntialized();
+Databasehelper.dbhelper();
+
+runApp()
+}
+
+
+//Add Screen
+
+Textformfield =controller,
+Textformfield =controller
+
+
+//Functon
+
+void insertdata({required Stirng title, required String decsription})
+{
+   Database db = DatabaseHelper.dbhelper();
+
+  db.rawInsert("Insert into notes(title,decsriion)value("$title,$decsription")"),
+	
+}
+
+//call 
+
+button  -
+	
+	ontap(){
+	getdata(title:controller.text.tostring,decsrip).then( (value){
+Navigator.pushReplacement(context, MaterialPageRoute(builder : (context)=> HomeScreen));
+} )
+}
+
+
+//Home Screen
+
+List<Map<String,dynaminc>> datalist = [];
+
+	Future<Database> getdata() async
+{
+	Database db=await DatabaseHelper.dbhelper();
+	
+	datalist =await db.rawquiry("SELECT * FROM notes"),
+    
+return db;
+
+}
+
+
+//body
+	FutureBuilder(
+future : getdata(),
+builder:	
+(context, snapshot)
+{
+	if(snapshot.ConnecionState = ConnectionState.waiting)
+	{
+		return CircularProgressIndicator();
+	}else if(snapshot.hasError)
+	{
+		return Center(child : Text("Error : $ snapshot.error"))
+	}else if (snapshot.hasData)
+	{
+		return ListView.builder(
+	itembuilder: (context,index){
+		retrun Card(
+		child : ListTile(
+		leading : CircleAvtar(child :  Text(datalist[index]["id"].tostring))
+		title : Text(datalist[index]["title"]),
+		subtitle : Text(datalist[index]["decription]),
+		)
+	);
+	}
+	);
+	}
+
+}
+)
+	
+
